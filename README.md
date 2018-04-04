@@ -1,0 +1,2 @@
+# ZYCycleViewByCollectionView
+前几天写了一篇使用UIScrollView实现轮播图,但是感觉效果不是很好,图片的切换和UIControlPage的切换不是很协调,现在使用UICollectionView再实现轮播图
