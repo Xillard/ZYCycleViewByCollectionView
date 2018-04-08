@@ -102,13 +102,16 @@ NSString *const cellID = @"ZYCycleCell";
 }
 
 - (void)cyclePictures:(NSTimer *)timer {
-    /*每隔scrollTimeInterval获取当期的位置,然后调用UICollectionView方法滚动至下一个位置,当滚动至最后一个Item时又从头开始*/
+    /*每隔scrollTimeInterval获取当期的位置,然后调用UICollectionView方法滚动至下一个位置,当滚动至最后一个Item时从图片数据源最后一张图片重新开始*/
     NSInteger currentIndex = _ZYCollectionView.contentOffset.x / CGRectGetWidth(self.bounds);
     NSInteger nextIndex = currentIndex + 1;
     if (nextIndex == _totalItem) {
-        nextIndex = 0;
+        nextIndex = _imageArr.count - 1;
+        [_ZYCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:nextIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+        _ZYPageControl.currentPage = nextIndex;
+        return;
     }
-    [_ZYCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:nextIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    [_ZYCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:nextIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
     _ZYPageControl.currentPage = nextIndex % _imageArr.count;
 }
 
